@@ -1,0 +1,49 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: #0077cc;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer {
+  background: #eee;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+.tour-list {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 2rem;
+}
+
+.tour-card {
+  width: 300px;
+  border: 1px solid #ccc;
+  padding: 1rem;
+}
+
+.tour-card img {
+  width: 100%;
+  height: auto;
+}
