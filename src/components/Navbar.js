@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Menu, X, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
+import iconW from '../imgs/iconW.png'
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navItems = ['Trang Chủ', 'Giới Thiệu', 'Loại Phòng', 'Ẩm Thực', 'Combo Package', 'Hình Ảnh'];
 
   return (
-    <nav className="bg-black/10 backdrop-blur-md text-white transition-colors duration-300 fixed w-full z-50">
+    <nav className="bg-black/0 backdrop-blur-md text-white transition-colors duration-300 fixed w-full z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
 
@@ -15,13 +15,10 @@ const Navbar = () => {
           <div className="flex items-center space-x-2">
             <img
               className="h-10 w-auto"
-              src="/logo.png"
+              src={iconW}
               alt="Co Retreat"
             />
-            <div className="text-sm">
-              <div className="font-bold">co retreat</div>
-              <div className="text-xs">TẠM, ĐÀ BẮC</div>
-            </div>
+            
           </div>
 
           {/* Desktop Trang chủ */}
@@ -44,19 +41,19 @@ const Navbar = () => {
           </div>
           {/* Desktop Ẩm Thực */}
           <div className="hidden md:flex space-x-6 text-sm">
-            <Link to="/gioi-thieu" className="hover:underline underline-offset-4 transition-all">
+            <Link to="/am-thuc" className="hover:underline underline-offset-4 transition-all">
               Ẩm Thực
             </Link>
           </div>
           {/* Desktop Combo Package */}
           <div className="hidden md:flex space-x-6 text-sm">
-            <Link to="/gioi-thieu" className="hover:underline underline-offset-4 transition-all">
+            <Link to="/combopackage" className="hover:underline underline-offset-4 transition-all">
               Combo Package
             </Link>
           </div>
           {/* Desktop Hình Ảnh */}
           <div className="hidden md:flex space-x-6 text-sm">
-            <Link to="/gioi-thieu" className="hover:underline underline-offset-4 transition-all">
+            <Link to="/hinh-anh" className="hover:underline underline-offset-4 transition-all">
               Hình Ảnh
             </Link>
           </div>
@@ -64,7 +61,7 @@ const Navbar = () => {
           {/* Contact (Desktop) */}
           <div className="hidden md:flex items-center space-x-2 text-sm">
             <Phone size={16} />
-            <span>Liên Hệ</span>
+            <Link to="/lien-he" className='hover:underline underline-offset-4 transition-all'>Liên Hệ</Link>
           </div>
 
           {/* Mobile Menu Icon */}
