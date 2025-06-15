@@ -1,15 +1,16 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import ProtectedRoute from "../src/security/ProtectedRoute";
+import { BrowserRouter as Router, Routes, Route, useLocation,Navigate } from 'react-router-dom';
+import './assets/fonts.css';
 import NavBar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import GioiThieu from './pages/GioiThieu';
 import LoaiPhong from './pages/LoaiPhong';
+
 import Admin from './pages/Admin';
 import LoginAdmin from './pages/LoginAdmin';
 import Room from './pages/AdminRoom';
@@ -19,25 +20,41 @@ import OtpVerification from './pages/AdminOTP';
 import ChangePassword from './pages/AdminResetPass';
 import { PasswordResetProvider } from "../src/security/PasswordResetContext";
 
-function App() {
-  return (
-    <PasswordResetProvider>
-      <Router>
-        {/* Toast notification container */}
-        <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+import Footer from './components/Footer';
+import DetailPhong from './pages/DetailPhong';
+import ComboPackage from './pages/ComboPackage';
+import DetailComboPackage from './pages/DetailComboPackage';
+import ScrollToTop from './components/ScrollToTop';
+import HinhAnh from './pages/HinhAnh';
+import LienHe from './pages/LienHe';
+import AmThuc from './pages/AmThuc';
 
-        {/* <NavBar /> */}
-        <div className="pt-16"> {/* Để không bị che bởi navbar fixed */}
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/gioi-thieu" element={<GioiThieu />} />
-            <Route path="/loai-phong" element={<LoaiPhong />} />
+// ✅ Component này nằm BÊN TRONG <Router>
+function AppLayout() {
+  const location = useLocation();
+  const isHome = location.pathname === '/';
+
+
+  return (
+    <>
+      {!isHome && <NavBar />}
+      <ScrollToTop />
+      <div className="pt-0">
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path="/gioi-thieu" element={<GioiThieu />} />
+          <Route path="/loai-phong" element={<LoaiPhong />} />
+          <Route path="/detail-phong" element={<DetailPhong />} />
+          <Route path="/am-thuc" element={<AmThuc />} />
+          <Route path="/combopackage" element={<ComboPackage />} />
+          <Route path="/detail-combopackage" element={<DetailComboPackage />} />
+          <Route path="/hinh-anh" element={<HinhAnh />} />
+          <Route path="/lien-he" element={<LienHe />} />
             <Route path="/admin" element={<LoginAdmin />} />
             <Route path="/send-otp" element={<OtpVerification />} />
             <Route path="/reset-password" element={<ChangePassword />} />
-
             <Route
               path="/home-admin"
               element={
@@ -50,15 +67,23 @@ function App() {
               <Route path="admin-room" element={<Room />} />
               <Route path="admin-food" element={<Food />} />
               <Route path="admin-settings" element={<Setting />} />
-            </Route>
-
-            {/* Redirect all unknown routes to home */}
+                {/* Redirect all unknown routes to home */}
             <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </div>
-      </Router>
-    </PasswordResetProvider>
+        </Routes>
+      </div>
+      <Footer />
+    </>
+  );
+}
 
+function App() {
+  return (
+    <PasswordResetProvider>
+    <Router>
+     <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+      <AppLayout />
+    </Router>
+    </PasswordResetProvider>
   );
 }
 
