@@ -4,7 +4,15 @@ import { Link } from 'react-router-dom';
 import iconW from '../imgs/iconW.png'
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const navItems = ['Trang Chủ', 'Giới Thiệu', 'Loại Phòng', 'Ẩm Thực', 'Combo Package', 'Hình Ảnh'];
+  const navItems = [
+    { label: 'Trang Chủ', path: '/' },
+    { label: 'Giới Thiệu', path: '/gioi-thieu' },
+    { label: 'Loại Phòng', path: '/loai-phong' },
+    { label: 'Ẩm Thực', path: '/am-thuc' },
+    { label: 'Combo Package', path: '/combopackage' },
+    { label: 'Hình Ảnh', path: '/hinh-anh' }
+  ];
+
 
   return (
     <nav className="bg-black/0 backdrop-blur-md text-white transition-colors duration-300 fixed w-full z-50">
@@ -18,7 +26,7 @@ const Navbar = () => {
               src={iconW}
               alt="Co Retreat"
             />
-            
+
           </div>
 
           {/* Desktop Trang chủ */}
@@ -77,20 +85,22 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden bg-black/80 text-white px-4 py-4 space-y-4">
           {navItems.map((item, index) => (
-            <a
+            <Link
               key={index}
-              href="#"
+              to={item.path}
               className="block text-sm hover:underline underline-offset-4"
+              onClick={() => setIsOpen(false)} // đóng menu sau khi bấm
             >
-              {item}
-            </a>
+              {item.label}
+            </Link>
           ))}
           <div className="flex items-center space-x-2 text-sm pt-4 border-t border-gray-700">
             <Phone size={16} />
-            <span>Liên Hệ</span>
+            <Link to="/lien-he" onClick={() => setIsOpen(false)}>Liên Hệ</Link>
           </div>
         </div>
       )}
+
     </nav>
   );
 };

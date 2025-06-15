@@ -77,7 +77,7 @@ const ComboPackage
     return (
       <div className="relative w-full bg-cover bg-center">
         <div
-          className="relative bg-center bg-no-repeat bg-contain md:bg-cover text-white"
+          className="relative bg-center bg-no-repeat bg-cover text-white"
           style={{ backgroundImage: `url(${anhBia})` }}
         >
           {/* Lớp phủ đen + gradient */}

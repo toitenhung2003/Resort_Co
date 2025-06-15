@@ -21,7 +21,7 @@ const LoaiPhong = () => {
   return (
     <div className="relative w-full">
       <div
-        className="relative w-full h-full bg-center bg-no-repeat bg-contain md:bg-cover"
+        className="relative w-full h-full bg-center bg-no-repeat bg-cover"
         style={{ backgroundImage: `url(${anhBia})` }}
       >
         {/* Lớp phủ toàn ảnh: gradient + lớp mờ */}

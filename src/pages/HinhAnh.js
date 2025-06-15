@@ -4,6 +4,16 @@ import imgD1 from '../imgs/imgD1.png';
 import iconZalo from '../imgs/Zalo.png';
 import iconFb from '../imgs/Facebook.png';
 import iconIG from '../imgs/Instagram.png';
+import imgSp1 from '../imgs/imgSp1.JPG';
+import imgSp2 from '../imgs/imgSp2.JPG';
+import imgSp3 from '../imgs/imgSp3.JPG';
+import imgSp4 from '../imgs/imgSp4.JPG';
+import imgSp5 from '../imgs/imgSp5.JPG';
+import imgSp6 from '../imgs/imgSp6.JPG';
+import imgSp7 from '../imgs/imgSp7.JPG';
+import imgSp8 from '../imgs/imgSp8.JPG';
+
+
 
 const HinhAnh = () => {
   const tabs = [
@@ -17,7 +27,7 @@ const HinhAnh = () => {
 
   const imagesByCategory = {
     room: [imgD1, imgD1, imgD1, imgD1],
-    space: [imgD1, imgD1],
+    space: [imgSp1,imgSp2,imgSp3,imgSp4,],
     restaurant: [imgD1, imgD1],
     pool: [imgD1, imgD1],
     activity: [imgD1, imgD1],
