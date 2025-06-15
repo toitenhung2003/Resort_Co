@@ -1,13 +1,25 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ProtectedRoute from "../src/security/ProtectedRoute";
+import { BrowserRouter as Router, Routes, Route, useLocation,Navigate } from 'react-router-dom';
 import './assets/fonts.css';
-
 import NavBar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import GioiThieu from './pages/GioiThieu';
 import LoaiPhong from './pages/LoaiPhong';
+
+import Admin from './pages/Admin';
+import LoginAdmin from './pages/LoginAdmin';
+import Room from './pages/AdminRoom';
+import Food from './pages/AdminFood';
+import Setting from './pages/AdminSetting';
+import OtpVerification from './pages/AdminOTP';
+import ChangePassword from './pages/AdminResetPass';
+import { PasswordResetProvider } from "../src/security/PasswordResetContext";
+
 import Footer from './components/Footer';
 import DetailPhong from './pages/DetailPhong';
 import ComboPackage from './pages/ComboPackage';
@@ -21,6 +33,7 @@ import AmThuc from './pages/AmThuc';
 function AppLayout() {
   const location = useLocation();
   const isHome = location.pathname === '/';
+
 
   return (
     <>
@@ -39,6 +52,23 @@ function AppLayout() {
           <Route path="/detail-combopackage" element={<DetailComboPackage />} />
           <Route path="/hinh-anh" element={<HinhAnh />} />
           <Route path="/lien-he" element={<LienHe />} />
+            <Route path="/admin" element={<LoginAdmin />} />
+            <Route path="/send-otp" element={<OtpVerification />} />
+            <Route path="/reset-password" element={<ChangePassword />} />
+            <Route
+              path="/home-admin"
+              element={
+                <ProtectedRoute>
+                  <Admin />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Navigate to="admin-room" replace />} />
+              <Route path="admin-room" element={<Room />} />
+              <Route path="admin-food" element={<Food />} />
+              <Route path="admin-settings" element={<Setting />} />
+                {/* Redirect all unknown routes to home */}
+            <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
       <Footer />
@@ -48,9 +78,12 @@ function AppLayout() {
 
 function App() {
   return (
+    <PasswordResetProvider>
     <Router>
+     <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
       <AppLayout />
     </Router>
+    </PasswordResetProvider>
   );
 }
 
