@@ -1,6 +1,7 @@
 import React from 'react';
 import anhBia from '../imgs/anhBia.png';
-
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import imgMain from '../imgs/imgF4.png';
 import imgD1 from '../imgs/imgD1.png';
@@ -22,6 +23,12 @@ import Icsearch from "../imgs/Icsearch.png";
 
 
 const DetailPhong = () => {
+  const location = useLocation();
+  
+  const { room } = location.state || {}; // fallback để tránh lỗi nếu không có dữ liệu
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [room]);
   const roomList = [
     {
       name: "Deluxe Double Room",
@@ -59,7 +66,7 @@ const DetailPhong = () => {
 
         <div className="relative z-10 max-w-[1360px] mx-auto px-4 py-24 ">
           <h1 className="text-4xl md:text-6xl font-utm-americana font-semibold text-center mt-20 mb-40">
-            DELUXE DOUBLE ROOM
+          {room?.name}
           </h1>
 
           <div className="bg-white text-gray-800 shadow-xl rounded-xl p-6 md:p-10 flex flex-col gap-10 bg-cBg">
@@ -144,8 +151,8 @@ const DetailPhong = () => {
 
               {/* Giá phòng */}
               <div>
-                <h2 className="text-2xl font-semibold mb-1 font-utm-americana text-cocGreen mt-6">Giá Deluxe Double Room</h2>
-                <p className="text-3xl font-bold font-grandma text-cocGreen mb-2">2.000.000 VND/đêm</p>
+                <h2 className="text-2xl font-semibold mb-1 font-utm-americana text-cocGreen mt-6">Giá {room?.name}</h2>
+                <p className="text-3xl font-bold font-grandma text-cocGreen mb-2">{room?.price}</p>
                 <ul className=" text-base font-gotham text-cocGreen font-semibold space-y-1">
                   <p>*** Giá trên đã bao gồm nước uống tiêu chuẩn theo ngày, bữa ăn sáng, thuế & phí phục vụ</p>
                   <p>*** Nhà sàn nằm trên phòng lễ tân gần cổng Sol và không có nhà vệ sinh khép kín</p>
@@ -212,6 +219,7 @@ const DetailPhong = () => {
                 </p>
                 <Link
                   to="/detail-phong"
+                  state={{ room }}
                   className="group/button mt-6 w-full border border-white text-white py-2 rounded-full text-center font-medium hover:bg-white hover:text-cocGreen transition duration-300 flex items-center justify-center gap-2"
                 >
                   <span>Xem phòng</span>

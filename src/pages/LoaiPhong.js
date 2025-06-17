@@ -62,6 +62,7 @@ const LoaiPhong = () => {
                     </p>
                     <Link
                       to="/detail-phong"
+                      state={{ room }}
                       className="group/button mt-6 w-full border border-white text-white py-2 rounded-full text-center font-medium hover:bg-white hover:text-cocGreen transition duration-300 flex items-center justify-center gap-2"
                     >
                       <span>Xem phòng</span>

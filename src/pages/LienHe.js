@@ -8,6 +8,7 @@ import phoneIcon from '../imgs/Phone.png';
 import emailIcon from '../imgs/Email.png';
 import markIcon from '../imgs/Mark.png';
 import sendIcon from '../imgs/Send.png'
+import { Link } from 'react-router-dom';
 const LienHe = () => {
   const tabs = [
     { label: 'Tất cả', key: 'all' },
@@ -106,7 +107,10 @@ const LienHe = () => {
                 <div className="flex items-center gap-8">
                   <p className="text-base font-gotham text-cocGreen font-semibold">Follow Us</p>
                   <img src={iconZalo} alt="zalo" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
-                  <img src={iconFb} alt="facebook" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
+                  <Link to="https://www.facebook.com/share/1AeioFi6CS/?mibextid=wwXIfr">
+                    <img src={iconFb} alt="facebook" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
+                  </Link>
+
                   <img src={iconIG} alt="instagram" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
                 </div>
               </div>
