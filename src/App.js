@@ -34,11 +34,13 @@ import { PasswordResetProvider } from './security/PasswordResetContext';
 function AppLayout() {
   const location = useLocation();
   const isHome = location.pathname === '/';
-  const isAdmin = location.pathname.startsWith('/home-admin'); // ✅ check đúng cả trang con
+  const isAdmin = location.pathname.startsWith('/home-admin');
+  const hideLayoutPaths = ['/admin', '/send-otp', '/reset-password'];
+  const isLoginAdmin = hideLayoutPaths.includes(location.pathname);
 
   return (
     <>
-      {!isHome && !isAdmin && <NavBar />}
+      {!isHome && !isAdmin && !isLoginAdmin && <NavBar />}
 
       <ScrollToTop />
 
@@ -82,7 +84,7 @@ function AppLayout() {
         </Routes>
       </div>
 
-      { !isAdmin && <Footer />}
+      {!isAdmin && !isLoginAdmin && <Footer />}
     </>
   );
 }
