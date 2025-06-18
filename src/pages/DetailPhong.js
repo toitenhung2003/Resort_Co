@@ -20,41 +20,20 @@ import { Link } from 'react-router-dom';
 import Icmark from "../imgs/Mark.png";
 import rectangle from "../imgs/rectangle.png";
 import Icsearch from "../imgs/Icsearch.png";
+import {useData} from '../security/DataProvider'
+
 
 
 const DetailPhong = () => {
   const location = useLocation();
-  
+  const { Category, loading, error } = useData();
+
+
   const { room } = location.state || {}; // fallback để tránh lỗi nếu không có dữ liệu
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [room]);
-  const roomList = [
-    {
-      name: "Deluxe Double Room",
-      price: "2.000.000 VND/Đêm",
-    },
-    {
-      name: "Deluxe Twin Room",
-      price: "2.400.000 VND/Đêm",
-    },
-    {
-      name: "Nature Retreat Stilt House",
-      price: "2.000.000 VND/Đêm",
-    },
-    {
-      name: "Glamping Suite",
-      price: "3.600.000 VND/Đêm",
-    },
-    {
-      name: "Glamping Suite",
-      price: "3.600.000 VND/Đêm",
-    },
-    {
-      name: "Glamping Suite",
-      price: "3.600.000 VND/Đêm",
-    },
-  ];
+  
   return (
     <div className="relative w-full bg-cover bg-center">
       <div
@@ -66,7 +45,7 @@ const DetailPhong = () => {
 
         <div className="relative z-10 max-w-[1360px] mx-auto px-4 py-24 ">
           <h1 className="text-4xl md:text-6xl font-utm-americana font-semibold text-center mt-20 mb-40">
-          {room?.name}
+            {room?.name}
           </h1>
 
           <div className="bg-white text-gray-800 shadow-xl rounded-xl p-6 md:p-10 flex flex-col gap-10 bg-cBg">
@@ -79,37 +58,47 @@ const DetailPhong = () => {
             {/* Ảnh phòng nghỉ */}
             <div className="w-full space-y-4 sm:space-y-0 sm:space-x-0">
               {/* Container dành riêng cho mobile: 4 ảnh theo cột */}
-              <div className="flex flex-col gap-4 sm:hidden">
-                {[imgMain, imgD1, imgD2, imgD3].map((img, i) => (
-                  <img
-                    key={i}
-                    src={img}
-                    alt={`ảnh phòng ${i}`}
-                    className="w-full h-52 object-cover rounded-xl"
-                  />
-                ))}
-              </div>
-
-              {/* Container dành cho desktop: 1 ảnh chính + 3 ảnh nhỏ */}
-              <div className="hidden sm:block">
-                <div className="w-full mb-4">
-                  <img
-                    src={imgMain}
-                    alt="Phòng nghỉ"
-                    className="rounded-xl w-full h-[500px] object-cover"
-                  />
-                </div>
-                <div className="grid grid-cols-3 gap-4">
-                  {[imgD1, imgD2, imgD3].map((img, i) => (
+              {room?.detail?.images?.length >= 4 && (
+                <div className="flex flex-col gap-4 sm:hidden">
+                  {[
+                    room.detail.images[3], // ảnh thứ 4 lên đầu
+                    ...room.detail.images.filter((_, i) => i !== 3).slice(0, 3), // 3 ảnh còn lại
+                  ].map((img, i) => (
                     <img
                       key={i}
                       src={img}
-                      alt={`ảnh phụ ${i + 1}`}
-                      className="rounded-lg w-full h-52 object-cover"
+                      alt={`ảnh phòng ${i + 1}`}
+                      className="w-full h-52 object-cover rounded-xl"
                     />
                   ))}
                 </div>
-              </div>
+              )}
+
+              {/* Container dành cho desktop: 1 ảnh chính + 3 ảnh nhỏ */}
+              {room?.detail?.images?.length >= 4 && (
+                <div className="hidden sm:block">
+                  <div className="w-full mb-4">
+                    <img
+                      src={room.detail.images[3]}
+                      alt="Phòng nghỉ"
+                      className="rounded-xl w-full h-[500px] object-cover"
+                    />
+                  </div>
+                  <div className="grid grid-cols-3 gap-4">
+                    {room.detail.images
+                      .filter((_, i) => i !== 3) // bỏ ảnh thứ 4 (dùng làm ảnh chính)
+                      .slice(0, 3)               // lấy 3 ảnh còn lại đầu tiên
+                      .map((img, i) => (
+                        <img
+                          key={i}
+                          src={img}
+                          alt={`Ảnh phụ ${i + 1}`}
+                          className="rounded-lg w-full h-52 object-cover"
+                        />
+                      ))}
+                  </div>
+                </div>
+              )}
             </div>
 
 
@@ -152,7 +141,7 @@ const DetailPhong = () => {
               {/* Giá phòng */}
               <div>
                 <h2 className="text-2xl font-semibold mb-1 font-utm-americana text-cocGreen mt-6">Giá {room?.name}</h2>
-                <p className="text-3xl font-bold font-grandma text-cocGreen mb-2">{room?.price}</p>
+                <p className="text-3xl font-bold font-grandma text-cocGreen mb-2">{new Intl.NumberFormat('vi-VN').format(room.price)} VND/Đêm</p>
                 <ul className=" text-base font-gotham text-cocGreen font-semibold space-y-1">
                   <p>*** Giá trên đã bao gồm nước uống tiêu chuẩn theo ngày, bữa ăn sáng, thuế & phí phục vụ</p>
                   <p>*** Nhà sàn nằm trên phòng lễ tân gần cổng Sol và không có nhà vệ sinh khép kín</p>
@@ -201,10 +190,10 @@ const DetailPhong = () => {
         <h2 className="text-4xl md:text-4xl font-utm-americana font-semibold mb-4">LOẠI PHÒNG LƯU TRÚ KHÁC</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {roomList.map((room, index) => (
+          {Category?.map((room, index) => (
             <div key={index} className="relative rounded-2xl overflow-hidden shadow-xl group h-[420px]">
               <img
-                src={imgF4}
+                src={room.image}
                 alt={room.name}
                 className="w-full h-full object-cover transform group-hover:scale-105 transition duration-500"
               />
@@ -213,7 +202,7 @@ const DetailPhong = () => {
               <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-[#091911]/100 to-transparent group-hover:opacity-0 transition duration-500 z-10" />
               <div className="absolute bottom-0 z-20 w-full px-6 pb-6 text-white">
                 <h3 className="text-3xl font-bold font-utm-americana">{room.name}</h3>
-                <p className="text-xl font-semibold mt-1 font-gotham">{room.price}</p>
+                <p className="text-xl font-semibold mt-1 font-gotham">{new Intl.NumberFormat('vi-VN').format(room.price)} VND/Đêm</p>
                 <p className="text-[12px] mt-3 line-clamp-3 font-gotham tracking-widest">
                   Nằm trên vị trí cao, được xây dựng từ vật liệu gỗ tự nhiên, với thiết kế truyền thống và không gian rộng rãi, thoáng đãng, nhà sàn Cọ mang đến cho du khách những trải nghiệm gần gũi với thiên nhiên Mai Châu và văn hóa dân tộc Thái trắng.
                 </p>
@@ -255,9 +244,9 @@ const DetailPhong = () => {
           <div className="w-px h-6 bg-gray-300 hidden sm:block" />
 
           <div className="hidden sm:flex items-center gap-4 text-cocGreen text-sm font-medium">
-             <div>
-                              <Link to='/hinh-anh'>Hình ảnh các hoạt động</Link>
-                            </div>
+            <div>
+              <Link to='/hinh-anh'>Hình ảnh các hoạt động</Link>
+            </div>
             <button className="relative w-9 h-9 flex-shrink-0">
               <img
                 src={rectangle}

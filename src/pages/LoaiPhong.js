@@ -7,8 +7,11 @@ import Icsearch from "../imgs/Icsearch.png";
 import imgF4 from "../imgs/imgF4.png";
 import StarIcon from '../components/StarIcon';
 import { Link } from 'react-router-dom';
+import {useData} from '../security/DataProvider'
+
 
 const LoaiPhong = () => {
+  const { Category, loading, error } = useData();
   const roomList = [
     { name: "Deluxe Double Room", price: "2.000.000 VND/Đêm" },
     { name: "Deluxe Twin Room", price: "2.400.000 VND/Đêm" },
@@ -46,17 +49,17 @@ const LoaiPhong = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {roomList.map((room, index) => (
+              {Category?.map((room, index) => (
                 <div key={index} className="relative rounded-2xl overflow-hidden shadow-xl group h-[420px]">
                   <img
-                    src={imgF4}
-                    alt={room.name}
+                    src={room?.image}
+                    alt={room?.name}
                     className="w-full h-full object-cover transform group-hover:scale-105 transition duration-500"
                   />
                   <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-[#091911]/100 to-transparent group-hover:opacity-0 transition duration-500 z-10" />
                   <div className="absolute bottom-0 z-20 w-full px-6 pb-6 text-white">
-                    <h3 className="text-3xl font-bold font-utm-americana">{room.name}</h3>
-                    <p className="text-xl font-semibold mt-1 font-gotham">{room.price}</p>
+                    <h3 className="text-3xl font-bold font-utm-americana">{room?.name}</h3>
+                    <p className="text-xl font-semibold mt-1 font-gotham">{new Intl.NumberFormat('vi-VN').format(room?.price)} VND/Đêm</p>
                     <p className="text-[12px] mt-3 line-clamp-3 font-gotham tracking-widest">
                       Nằm trên vị trí cao, được xây dựng từ vật liệu gỗ tự nhiên, với thiết kế truyền thống và không gian rộng rãi, thoáng đãng, nhà sàn Cọ mang đến cho du khách những trải nghiệm gần gũi với thiên nhiên Mai Châu và văn hóa dân tộc Thái trắng.
                     </p>
