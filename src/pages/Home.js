@@ -25,6 +25,7 @@ import iconPhone from '../imgs/Phone.png';
 import imgH2 from '../imgs/imgH2.png';
 import imgH3 from '../imgs/imgH3.png';
 import imgH4 from '../imgs/imgH4.png';
+import {useData} from '../security/DataProvider'
 const slides = [
   {
     image: anhBia,
@@ -48,35 +49,11 @@ const slides = [
       'Một hành trình tĩnh lặng, nơi bạn cảm nhận từng hơi thở của thiên nhiên và những phút giây an yên giữa đại ngàn.',
   },
 ];
-const roomList = [
-  {
-    name: "Deluxe Double Room",
-    price: "2.000.000 VND/Đêm",
-  },
-  {
-    name: "Deluxe Twin Room",
-    price: "2.400.000 VND/Đêm",
-  },
-  {
-    name: "Nature Retreat Stilt House",
-    price: "2.000.000 VND/Đêm",
-  },
-  {
-    name: "Glamping Suite",
-    price: "3.600.000 VND/Đêm",
-  },
-  {
-    name: "Glamping Suite",
-    price: "3.600.000 VND/Đêm",
-  },
-  {
-    name: "Glamping Suite",
-    price: "3.600.000 VND/Đêm",
-  },
-];
+
 function Home() {
   const [current, setCurrent] = useState(0);
   const [prev, setPrev] = useState(null);
+  const { Category, loading, error } = useData();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -84,7 +61,11 @@ function Home() {
       setCurrent((prev) => (prev + 1) % slides.length);
     }, 7000);
     return () => clearInterval(timer);
+    
   }, [current]);
+  useEffect(() => {
+    console.log("data ",Category);
+  }, []);
 
   const slide = slides[current];
   const prevSlide = prev !== null ? slides[prev] : null;
@@ -226,10 +207,10 @@ function Home() {
       {/* list phòng */}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto px-4">
-        {roomList.map((room, index) => (
+        {Category?.map((room, index) => (
           <div key={index} className="relative rounded-2xl overflow-hidden shadow-xl group h-[420px]">
             <img
-              src={imgF4}
+              src={room.image}
               alt={room.name}
               className="w-full h-full object-cover transform group-hover:scale-105 transition duration-500"
             />
@@ -238,7 +219,7 @@ function Home() {
             <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-[#091911]/100 to-transparent group-hover:opacity-0 transition duration-500 z-10" />
             <div className="absolute bottom-0 z-20 w-full px-6 pb-6 text-white">
               <h3 className="text-[24px] md:text-3xl font-bold font-utm-americana">{room.name}</h3>
-              <p className="text-xl font-semibold mt-1 font-gotham">{room.price}</p>
+              <p className="text-xl font-semibold mt-1 font-gotham">{new Intl.NumberFormat('vi-VN').format(room.price)} VND/Đêm</p>
 
               <Link
                 to="/detail-phong"

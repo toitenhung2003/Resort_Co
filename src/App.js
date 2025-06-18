@@ -30,7 +30,7 @@ import ChangePassword from './pages/AdminResetPass';
 
 import ProtectedRoute from './security/ProtectedRoute';
 import { PasswordResetProvider } from './security/PasswordResetContext';
-
+import { DataProvider } from './security/DataProvider';
 function AppLayout() {
   const location = useLocation();
   const isHome = location.pathname === '/';
@@ -93,10 +93,12 @@ function AppLayout() {
 function App() {
   return (
     <PasswordResetProvider>
-      <Router>
-        <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
-        <AppLayout />
-      </Router>
+      <DataProvider>
+        <Router>
+          <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+          <AppLayout />
+        </Router>
+      </DataProvider>
     </PasswordResetProvider>
   );
 }

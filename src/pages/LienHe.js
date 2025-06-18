@@ -9,7 +9,64 @@ import emailIcon from '../imgs/Email.png';
 import markIcon from '../imgs/Mark.png';
 import sendIcon from '../imgs/Send.png'
 import { Link } from 'react-router-dom';
+import { toast } from "react-toastify";
+
 const LienHe = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // 👉 Kiểm tra dữ liệu đơn giản
+    if (!formData.name || !formData.email || !formData.message) {
+      toast.error('Vui lòng điền đầy đủ thông tin bắt buộc');
+      return;
+    }
+
+
+    try {
+      const response = await fetch("https://re-contract.vercel.app/data/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+      console.log('res: ',data);
+
+      if (data.errorCode==="S200") {
+        toast.success("✅ Tin nhắn đã được gửi!");
+      } else {
+        toast.error(data?.result?.result || "Gửi thất bại");
+      }
+    } catch (error) {
+      toast.error("Đã xảy ra lỗi gửi tin nhắn");
+      console.error(error.message);
+    }
+    // 👉 In dữ liệu ra (hoặc gửi API tại đây)
+    console.log('Form submitted:', formData);
+
+    // toast.success('✅ Tin nhắn đã được gửi!');
+    // 👉 Reset form nếu cần
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      subject: '',
+      message: '',
+    });
+  };
   const tabs = [
     { label: 'Tất cả', key: 'all' },
     { label: 'Phòng lưu trú', key: 'room' },
@@ -117,22 +174,27 @@ const LienHe = () => {
 
 
               {/* Right Form */}
-              <form className="space-y-4 max-w-xl w-full  text-cocGreen ">
+              <form onSubmit={handleSubmit} className="space-y-4 max-w-xl w-full text-cocGreen">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block mb-1 font-semibold font-grandma text-xl">Họ và tên</label>
                     <input
                       type="text"
+                      name="name"
                       placeholder="Điền tên của bạn"
+                      value={formData.name}
+                      onChange={handleChange}
                       className="w-full px-4 py-3 rounded-full bg-white text-gray-800 placeholder-gray-400 focus:outline-none"
-
                     />
                   </div>
                   <div>
                     <label className="block mb-1 font-semibold font-grandma text-xl">Email</label>
                     <input
                       type="email"
+                      name="email"
                       placeholder="Email của bạn"
+                      value={formData.email}
+                      onChange={handleChange}
                       className="w-full px-4 py-3 rounded-full bg-white text-gray-800 placeholder-gray-400 focus:outline-none"
                     />
                   </div>
@@ -143,7 +205,10 @@ const LienHe = () => {
                     <label className="block mb-1 font-semibold font-grandma text-xl">Số điện thoại</label>
                     <input
                       type="tel"
+                      name="phone"
                       placeholder="Số điện thoại của bạn"
+                      value={formData.phone}
+                      onChange={handleChange}
                       className="w-full px-4 py-3 rounded-full bg-white text-gray-800 placeholder-gray-400 focus:outline-none"
                     />
                   </div>
@@ -151,7 +216,10 @@ const LienHe = () => {
                     <label className="block mb-1 font-semibold font-grandma text-xl">Subject</label>
                     <input
                       type="text"
+                      name="subject"
                       placeholder="Subject"
+                      value={formData.subject}
+                      onChange={handleChange}
                       className="w-full px-4 py-3 rounded-full bg-white text-gray-800 placeholder-gray-400 focus:outline-none"
                     />
                   </div>
@@ -163,8 +231,11 @@ const LienHe = () => {
                     Tin nhắn
                   </label>
                   <textarea
+                    name="message"
                     rows="4"
                     placeholder="Please type your message here..."
+                    value={formData.message}
+                    onChange={handleChange}
                     className="w-full px-4 py-3 rounded-xl bg-white text-gray-800 placeholder-gray-400 focus:outline-none"
                   ></textarea>
                 </div>

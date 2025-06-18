@@ -25,9 +25,55 @@ import iconPrevA from '../imgs/iconPrevA.png';
 import iconNextA from '../imgs/iconNextA.png';
 import imgA1 from "../imgs/imgA1.jpg"
 import { div } from 'framer-motion/client';
+import { toast } from "react-toastify";
+
 
 const AmThuc = () => {
     const staffImages = [imgS1, imgS2, imgS3, imgS4, imgS5, imgS6, imgS7, imgS8];
+    const [Category, setCategory] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+    const STORAGE_KEY = "cached-foods";
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch("https://re-contract.vercel.app/data/getAllCuisine", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" }
+                    // không truyền body nếu không cần
+                });
+
+                if (!response.ok) throw new Error("Server error");
+
+                const json = await response.json();
+                console.log("Full JSON:", json); // Kiểm tra
+
+                const cuisiness = json?.result?.result?.cuisines;
+                if (Array.isArray(cuisiness)) {
+                    console.log("cuisiness: ",cuisiness);
+                    setCategory(cuisiness);
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(cuisiness));
+                } else {
+                    toast.error("❌ Dữ liệu phòng không hợp lệ");
+                    setCategory([]);
+                }
+            } catch (err) {
+                const cached = localStorage.getItem(STORAGE_KEY);
+                if (cached) {
+                    setCategory(JSON.parse(cached));
+                    setError("⚠️ Dữ liệu đang bị gián đoạn");
+                } else {
+                    setError("❌ Không có dữ liệu và lỗi kết nối mạng.");
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     const MenuImages = [
         {
             img: imgA1,
@@ -336,26 +382,26 @@ const AmThuc = () => {
                                         <div
                                             className="flex transition-transform duration-500 ease-in-out"
                                             style={{
-                                                width: `${MenuImages.length * 100}%`,
-                                                transform: `translateX(-${startIndex * (100 / MenuImages.length)}%)`,
+                                                width: `${Category.length * 100}%`,
+                                                transform: `translateX(-${startIndex * (100 / Category.length)}%)`,
                                             }}
                                         >
-                                            {MenuImages.map((item, index) => (
+                                            {Category?.map((item, index) => (
                                                 <div
                                                     key={index}
                                                     className="w-full flex-shrink-0 relative"
-                                                    style={{ flex: `0 0 ${100 / MenuImages.length}%` }}
+                                                    style={{ flex: `0 0 ${100 / Category.length}%` }}
                                                 >
                                                     <img
-                                                        src={item.img}
+                                                        src={item?.image}
                                                         alt={`slide-${index}`}
                                                         className="w-full h-[400px] object-cover rounded-xl"
                                                     />
                                                     <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-[#091911]/90 to-transparent rounded-b-xl z-10" />
                                                     <div className="absolute bottom-0 z-20 w-full px-4 pb-4 text-white">
-                                                        <h3 className="text-xl font-bold font-utm-americana">{item.name}</h3>
+                                                        <h3 className="text-xl font-bold font-utm-americana">{item?.name}</h3>
                                                         <p className="text-sm font-semibold mt-1 font-gotham">
-                                                            {item.price.toLocaleString('vi-VN')}₫
+                                                            {item?.price.toLocaleString('vi-VN')}₫
                                                         </p>
                                                     </div>
                                                 </div>
@@ -371,10 +417,10 @@ const AmThuc = () => {
                                                 transform: `translateX(-${startIndex * 313}px)`,
                                             }}
                                         >
-                                            {MenuImages.map((item, index) => (
+                                            {Category.map((item, index) => (
                                                 <div key={index} className="relative group w-[297px] h-[400px] flex-shrink-0 mr-4">
                                                     <img
-                                                        src={item.img}
+                                                        src={item?.image}
                                                         alt={`slide-${index}`}
                                                         className="w-full h-full object-cover rounded-xl"
                                                     />
@@ -382,9 +428,9 @@ const AmThuc = () => {
                                                     <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-[#091911]/100 to-transparent group-hover:opacity-0 transition duration-500 z-10 rounded-b-xl" />
 
                                                     <div className="absolute bottom-0 z-20 w-full px-4 pb-4 text-white">
-                                                        <h3 className="text-xl font-bold font-utm-americana">{item.name}</h3>
+                                                        <h3 className="text-xl font-bold font-utm-americana">{item?.name}</h3>
                                                         <p className="text-sm font-semibold mt-1 font-gotham">
-                                                            {item.price.toLocaleString('vi-VN')}₫
+                                                            {item?.price.toLocaleString('vi-VN')}₫
                                                         </p>
 
                                                     </div>
