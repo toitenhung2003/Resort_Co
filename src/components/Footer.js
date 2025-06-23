@@ -154,7 +154,7 @@ export default function Footer() {
                 <div className="flex flex-col gap-y-7">
                   <Link to="/" className="transition-all duration-200 hover:font-semibold hover:scale-105">Trang Chủ</Link>
                   <Link to="/loai-phong" className="transition-all duration-200 hover:font-semibold hover:scale-105">Loại Phòng</Link>
-                  <Link to="/combo" className="transition-all duration-200 hover:font-semibold hover:scale-105">Combo Package</Link>
+                  <Link to="/combopackage" className="transition-all duration-200 hover:font-semibold hover:scale-105">Combo Package</Link>
                 </div>
               </div>
 
@@ -173,9 +173,16 @@ export default function Footer() {
             {/* Social */}
             <div className="flex items-center gap-3 mt-6 font-dmsans">
               <span className="text-white font-light">Follow Us</span>
-              <a href="#"><img src={iconZalo} alt="Zalo" className="w-5 h-5 hover:opacity-80" /></a>
-              <a href="#"><img src={iconFB} alt="Facebook" className="w-5 h-5 hover:opacity-80" /></a>
-              <a href="#"><img src={iconIG} alt="Instagram" className="w-5 h-5 hover:opacity-80" /></a>
+              <Link to='https://zalo.me/0866001900'>
+              <img src={iconZalo} alt="Zalo" className="w-5 h-5 hover:opacity-80" />
+
+              </Link>
+
+              <Link to='https://www.facebook.com/coretreatdabac'>
+              <img src={iconFB} alt="Facebook" className="w-5 h-5 hover:opacity-80" />
+
+              </Link>
+              <img src={iconIG} alt="Instagram" className="w-5 h-5 hover:opacity-80" />
             </div>
           </div>
         </div>
