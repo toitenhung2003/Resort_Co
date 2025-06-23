@@ -16,6 +16,9 @@ import imgS6 from "../imgs/imgS6.png"
 import imgS7 from "../imgs/imgS7.png"
 import imgS8 from "../imgs/imgS8.png"
 import { Link } from 'react-router-dom';
+import imgGT1 from "../imgs/imgGT1.png"
+import imgGT2 from "../imgs/imgGT2.png"
+import imgGT3 from "../imgs/imgGT3.png"
 
 const GioiThieu = () => {
     const staffImages = [imgS1, imgS2, imgS3, imgS4, imgS5, imgS6, imgS7, imgS8];
@@ -88,7 +91,7 @@ const GioiThieu = () => {
 
                             {/* Cột phải: 3 ảnh đứng bo góc đẹp như mockup */}
                             <div className="md:w-1/2 w-full flex justify-center gap-4 md:gap-6 relative">
-                                {[img1, img2, img3].map((src, index) => {
+                                {[imgGT1, imgGT2, imgGT3].map((src, index) => {
                                     const offsets = [0, 25, 45];
                                     return (
                                         <div
@@ -113,7 +116,7 @@ const GioiThieu = () => {
                                 <img src={Icmark} alt="marker" className="w-4 h-4 transition-transform duration-300 hover:scale-110" />
                                 <span>Vị trí Cọ Retreat:</span>
                                 <a
-                                    href="https://maps.google.com"
+                                    href="https://www.google.com/maps/place/C%E1%BB%8D+Retreat+%C4%90%C3%A0+B%E1%BA%AFc/@20.8776752,105.0976439,17z/data=!3m1!4b1!4m6!3m5!1s0x313475725307e607:0x83d2a40f71247be7!8m2!3d20.8776752!4d105.1002242!16s%2Fg%2F11vb17hstk?entry=ttu&g_ep=EgoyMDI1MDYxNy4wIKXMDSoASAFQAw%3D%3D"
                                     target="_blank"
                                     className="ml-2 bg-gray-100 px-3 py-1 rounded-lg text-gray-800 font-semibold text-sm hover:bg-gray-200 flex items-center gap-1"
                                 >

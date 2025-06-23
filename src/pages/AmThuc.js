@@ -26,7 +26,10 @@ import iconNextA from '../imgs/iconNextA.png';
 import imgA1 from "../imgs/imgA1.jpg"
 import { div } from 'framer-motion/client';
 import { toast } from "react-toastify";
-
+import { Link } from 'react-router-dom';
+import imgGT1 from "../imgs/imgGT1.png"
+import imgGT2 from "../imgs/imgGT2.png"
+import imgGT3 from "../imgs/imgGT3.png"
 
 const AmThuc = () => {
     const staffImages = [imgS1, imgS2, imgS3, imgS4, imgS5, imgS6, imgS7, imgS8];
@@ -51,7 +54,7 @@ const AmThuc = () => {
 
                 const cuisiness = json?.result?.result?.cuisines;
                 if (Array.isArray(cuisiness)) {
-                    console.log("cuisiness: ",cuisiness);
+                    console.log("cuisiness: ", cuisiness);
                     setCategory(cuisiness);
                     localStorage.setItem(STORAGE_KEY, JSON.stringify(cuisiness));
                 } else {
@@ -167,7 +170,7 @@ const AmThuc = () => {
                 className="relative bg-cover bg-center text-white"
                 style={{ backgroundImage: `url(${anhBia})` }}
             >
-             {/* Lớp phủ đen + gradient */}
+                {/* Lớp phủ đen + gradient */}
                 <div className="absolute inset-0">
                     <div className="absolute inset-0 bg-black/20" />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-[#2E463D]/100" />
@@ -308,7 +311,7 @@ const AmThuc = () => {
                     {/* Khối ảnh bên phải — đã thêm mt-[60px] */}
                     <div className="md:w-1/2 w-full flex justify-center relative mt-[60px]">
                         <div className="flex gap-10 md:gap-12">
-                            {[img1, img2, img3].map((src, index) => {
+                            {[imgGT1, imgGT2, imgGT3].map((src, index) => {
                                 const offsets = [0, 25, 45];
                                 return (
                                     <div
@@ -350,8 +353,15 @@ const AmThuc = () => {
                     </div>
                     <div className="flex items-start justify-start gap-6 mt-10">
                         <p className="text-base font-gotham text-cocGreen font-semibold">Follow Us</p>
+                        <Link to='https://zalo.me/0866001900'>
                         <img src={iconZalo} alt="zalo" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
+
+                        </Link>
+
+                        <Link to='https://www.facebook.com/coretreatdabac'>
                         <img src={iconFb} alt="facebook" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
+
+                        </Link>
                         <img src={iconIG} alt="instagram" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
                     </div>
                 </div>

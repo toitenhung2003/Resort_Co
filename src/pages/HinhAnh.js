@@ -12,6 +12,7 @@ import imgSp5 from '../imgs/imgSp5.JPG';
 import imgSp6 from '../imgs/imgSp6.JPG';
 import imgSp7 from '../imgs/imgSp7.JPG';
 import imgSp8 from '../imgs/imgSp8.JPG';
+import { Link } from 'react-router-dom';
 
 
 
@@ -27,7 +28,7 @@ const HinhAnh = () => {
 
   const imagesByCategory = {
     room: [imgD1, imgD1, imgD1, imgD1],
-    space: [imgSp1,imgSp2,imgSp3,imgSp4,],
+    space: [imgSp1, imgSp2, imgSp3, imgSp4,],
     restaurant: [imgD1, imgD1],
     pool: [imgD1, imgD1],
     activity: [imgD1, imgD1],
@@ -83,9 +84,11 @@ const HinhAnh = () => {
         `}
                   >
                     <span className={`
-          inline-block transition-all duration-300
-          group-hover:translate-x-[-24px] group-hover:scale-105 group-hover:font-semibold font-dmsans
-        `}>
+                      inline-block transition-all duration-300
+                      font-dmsans
+                      ${isActive ? 'translate-x-0 scale-105 font-semibold' : ''}
+                      md:group-hover:translate-x-[-24px] md:group-hover:scale-105 md:group-hover:font-semibold
+`}>
                       {tab.label}
                     </span>
                   </button>
@@ -95,14 +98,14 @@ const HinhAnh = () => {
 
 
             {/* Image Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 min-h-[1000px] transition-all duration-300">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6  transition-all duration-300">
 
               {getImagesToShow().map((img, idx) => (
                 <img
                   key={idx}
                   src={img}
                   alt={`img-${idx}`}
-                  className="w-full h-auto rounded-lg object-cover transition-transform duration-300 hover:scale-105"
+                  className="w-full h-[333px] rounded-lg object-cover transition-transform duration-300 hover:scale-105"
                 />
               ))}
             </div>
@@ -110,8 +113,15 @@ const HinhAnh = () => {
             {/* Follow Us */}
             <div className="flex items-center justify-center gap-6 mt-10">
               <p className="text-base font-gotham text-cocGreen font-semibold">Follow Us</p>
+              <Link to='https://zalo.me/0866001900'>
               <img src={iconZalo} alt="zalo" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
+
+              </Link>
+
+              <Link to='https://www.facebook.com/coretreatdabac'>
               <img src={iconFb} alt="facebook" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
+
+              </Link>
               <img src={iconIG} alt="instagram" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
             </div>
           </div>

@@ -25,7 +25,7 @@ import iconPhone from '../imgs/Phone.png';
 import imgH2 from '../imgs/imgH2.png';
 import imgH3 from '../imgs/imgH3.png';
 import imgH4 from '../imgs/imgH4.png';
-import {useData} from '../security/DataProvider'
+import { useData } from '../security/DataProvider'
 const slides = [
   {
     image: anhBia,
@@ -61,10 +61,10 @@ function Home() {
       setCurrent((prev) => (prev + 1) % slides.length);
     }, 7000);
     return () => clearInterval(timer);
-    
+
   }, [current]);
   useEffect(() => {
-    console.log("data ",Category);
+    console.log("data ", Category);
   }, []);
 
   const slide = slides[current];
@@ -145,8 +145,14 @@ function Home() {
             className="flex items-center gap-4 sm:gap-6 mt-6 flex-wrap"
           >
             <p className="text-base font-gotham text-[#B0B89C] font-semibold">Follow Us</p>
-            <img src={iconZalo} alt="zalo" className="w-6 h-6 hover:scale-125 transition-transform duration-300" />
-            <img src={iconFb} alt="facebook" className="w-6 h-6 hover:scale-125 transition-transform duration-300" />
+            <Link to='https://zalo.me/0866001900'>
+              <img src={iconZalo} alt="zalo" className="w-6 h-6 hover:scale-125 transition-transform duration-300" />
+
+            </Link>
+
+            <Link to='https://www.facebook.com/coretreatdabac'>
+              <img src={iconFb} alt="facebook" className="w-6 h-6 hover:scale-125 transition-transform duration-300" />
+            </Link>
             <img src={iconIG} alt="instagram" className="w-6 h-6 hover:scale-125 transition-transform duration-300" />
           </motion.div>
         </div>
@@ -299,41 +305,41 @@ function Home() {
 
 
       <div className="w-full bg-white py-16 px-4 md:px-10 border-t border-gray-300">
-  <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-    
-    {/* Khối ảnh */}
-    <div className="relative w-full flex flex-col md:flex-row justify-center items-center gap-6 md:gap-0">
-      {/* Ảnh sau nghiêng */}
-      <img
-        src={anhBia}
-        alt="hoatdong1"
-        className="w-60 h-auto md:w-80 rounded-lg shadow-xl transform rotate-[-10deg] absolute md:top-8 md:left-4 z-0 hidden md:block"
-      />
-      
-      {/* Ảnh trước */}
-      <div className="relative z-10">
-        <img
-          src={anhBia3}
-          alt="hoatdong2"
-          className="w-60 md:w-80 rounded-xl shadow-2xl mx-auto"
-        />
-        <Link to='/combopackage' className="absolute bottom-6 left-1/2 -translate-x-1/2 px-3 py-2 w-max text-white font-medium text-base rounded-[10px] bg-white/10 backdrop-blur-md transition hover:bg-white/20 z-10">
-          <span>Xem các hoạt động ▶</span>
-        </Link>
-      </div>
-    </div>
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
 
-    {/* Khối nội dung */}
-    <div className="text-[#42554B]">
-      <h2 className="text-[24px] md:text-[44px] font-bold font-utm-americana mb-6 leading-snug text-left md:text-left">
-        HOẠT ĐỘNG TẠI CỌ<br />RETREAT
-      </h2>
-      <p className="text-base md:text-[24px] font-grandma leading-relaxed font-semibold text-left md:text-left">
-        Tại Cọ Retreat, hành trình của bạn sẽ được làm đầy bằng những hoạt động trải nghiệm phong phú và gần gũi với thiên nhiên địa phương. Từ những buổi dạo bộ thong thả qua rừng cọ, tắm mát dưới dòng thác mát lành, cho đến những buổi ngắm hoàng hôn giữa ruộng bậc thang – mỗi trải nghiệm đều là một cách chạm vào vẻ đẹp yên bình và nguyên bản của Đà Bắc.
-      </p>
-    </div>
-  </div>
-</div>
+          {/* Khối ảnh */}
+          <div className="relative w-full flex flex-col md:flex-row justify-center items-center gap-6 md:gap-0">
+            {/* Ảnh sau nghiêng */}
+            <img
+              src={anhBia}
+              alt="hoatdong1"
+              className="w-60 h-auto md:w-80 rounded-lg shadow-xl transform rotate-[-10deg] absolute md:top-8 md:left-4 z-0 hidden md:block"
+            />
+
+            {/* Ảnh trước */}
+            <div className="relative z-10">
+              <img
+                src={anhBia3}
+                alt="hoatdong2"
+                className="w-60 md:w-80 rounded-xl shadow-2xl mx-auto"
+              />
+              <Link to='/combopackage' className="absolute bottom-6 left-1/2 -translate-x-1/2 px-3 py-2 w-max text-white font-medium text-base rounded-[10px] bg-white/10 backdrop-blur-md transition hover:bg-white/20 z-10">
+                <span>Xem các hoạt động ▶</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Khối nội dung */}
+          <div className="text-[#42554B]">
+            <h2 className="text-[24px] md:text-[44px] font-bold font-utm-americana mb-6 leading-snug text-left md:text-left">
+              HOẠT ĐỘNG TẠI CỌ<br />RETREAT
+            </h2>
+            <p className="text-base md:text-[24px] font-grandma leading-relaxed font-semibold text-left md:text-left">
+              Tại Cọ Retreat, hành trình của bạn sẽ được làm đầy bằng những hoạt động trải nghiệm phong phú và gần gũi với thiên nhiên địa phương. Từ những buổi dạo bộ thong thả qua rừng cọ, tắm mát dưới dòng thác mát lành, cho đến những buổi ngắm hoàng hôn giữa ruộng bậc thang – mỗi trải nghiệm đều là một cách chạm vào vẻ đẹp yên bình và nguyên bản của Đà Bắc.
+            </p>
+          </div>
+        </div>
+      </div>
 
 
 
@@ -365,8 +371,15 @@ function Home() {
             {/* Follow Us */}
             <div className="flex items-center gap-8 mt-8">
               <p className="text-base font-gotham text-cocGreen font-semibold">Follow Us</p>
-              <img src={iconZaloH} alt="zalo" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
-              <img src={iconFbH} alt="facebook" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
+              <Link to='https://zalo.me/0866001900'>
+                <img src={iconZaloH} alt="zalo" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
+
+              </Link>
+
+              <Link to='https://www.facebook.com/coretreatdabac'>
+                <img src={iconFbH} alt="facebook" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
+
+              </Link>
               <img src={iconIGH} alt="instagram" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
             </div>
           </div>

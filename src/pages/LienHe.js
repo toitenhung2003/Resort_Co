@@ -43,9 +43,9 @@ const LienHe = () => {
       });
 
       const data = await response.json();
-      console.log('res: ',data);
+      console.log('res: ', data);
 
-      if (data.errorCode==="S200") {
+      if (data.errorCode === "S200") {
         toast.success("✅ Tin nhắn đã được gửi!");
       } else {
         toast.error(data?.result?.result || "Gửi thất bại");
@@ -163,7 +163,10 @@ const LienHe = () => {
 
                 <div className="flex items-center gap-8">
                   <p className="text-base font-gotham text-cocGreen font-semibold">Follow Us</p>
-                  <img src={iconZalo} alt="zalo" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
+                  <Link to='https://zalo.me/0866001900'>
+                    <img src={iconZalo} alt="zalo" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
+                  </Link>
+
                   <Link to="https://www.facebook.com/share/1AeioFi6CS/?mibextid=wwXIfr">
                     <img src={iconFb} alt="facebook" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
                   </Link>
