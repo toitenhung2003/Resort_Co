@@ -74,38 +74,7 @@ const AmThuc = () => {
         fetchData();
     }, []);
 
-    const MenuImages = [
-        {
-            img: imgA1,
-            name: 'Rau muống xào tỏi',
-            price: 20000,
-            desc: 'Món rau thanh đạm, xào cùng tỏi thơm nức mũi.',
-        },
-        {
-            img: imgA1,
-            name: 'Gà rang muối',
-            price: 85000,
-            desc: 'Gà giòn bên ngoài, đậm vị bên trong.',
-        },
-        {
-            img: imgA1,
-            name: 'Canh chua cá lóc',
-            price: 70000,
-            desc: 'Canh chua đậm đà vị miền Nam.',
-        },
-        {
-            img: imgA1,
-            name: 'Bò lúc lắc',
-            price: 95000,
-            desc: 'Thịt bò mềm, sốt đậm đà, ăn cùng khoai tây chiên.',
-        },
-        {
-            img: imgA1,
-            name: 'Bò lúc lắc',
-            price: 95000,
-            desc: 'Thịt bò mềm, sốt đậm đà, ăn cùng khoai tây chiên.',
-        },
-    ];
+   
 
     const [startIndex, setStartIndex] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -139,7 +108,7 @@ const AmThuc = () => {
 
     const handlePrevMenu = () => {
         const maxVisibleImages = 4;
-        const maxIndex = MenuImages.length - visibleCountMenu;
+        const maxIndex = Category.length - visibleCountMenu;
 
         if (startIndex <= 0) {
             setStartIndex(maxIndex); // quay về cuối
@@ -149,7 +118,7 @@ const AmThuc = () => {
     };
     const handleNextMenu = () => {
         const maxVisibleImages = 4;
-        const maxIndex = MenuImages.length - visibleCountMenu;
+        const maxIndex = Category.length - visibleCountMenu;
 
         if (startIndex >= maxIndex) {
             setStartIndex(0); // quay lại ảnh đầu
