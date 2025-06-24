@@ -34,6 +34,7 @@ const DetailPhong = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [room]);
 
+
   return (
     <div className="relative w-full bg-cover bg-center">
       <div
@@ -58,40 +59,53 @@ const DetailPhong = () => {
             {/* Ảnh phòng nghỉ */}
             <div className="w-full space-y-4 sm:space-y-0 sm:space-x-0">
               {/* Container dành riêng cho mobile: 4 ảnh theo cột */}
-              {room?.detail?.images?.length >= 4 && (
+              {Array.isArray(room?.detail?.images) && room.detail.images.length >= 4 ? (
                 <div className="flex flex-col gap-4 sm:hidden">
                   {[
-                    room.detail.images[3], // ảnh thứ 4 lên đầu
-                    ...room.detail.images.filter((_, i) => i !== 3).slice(0, 3), // 3 ảnh còn lại
+                    room.detail.images[3],
+                    ...room.detail.images.filter((_, i) => i !== 3).slice(0, 3),
                   ].map((img, i) => (
                     <img
                       key={i}
-                      src={img}
+                      src={typeof img === "string" ? img : img?.link}
                       alt={`ảnh phòng ${i + 1}`}
                       className="w-full h-52 object-cover rounded-xl"
+                      onError={(e) => {
+                        console.error("Image failed to load:", img);
+                      }}
                     />
                   ))}
                 </div>
+              ) : (
+                <p className="text-red-500 sm:hidden">Không đủ ảnh để hiển thị trên mobile.</p>
               )}
 
               {/* Container dành cho desktop: 1 ảnh chính + 3 ảnh nhỏ */}
-              {room?.detail?.images?.length >= 4 && (
+              {Array.isArray(room?.detail?.images) &&room?.detail?.images?.length >= 4 && (
                 <div className="hidden sm:block">
                   <div className="w-full mb-4">
                     <img
-                      src={room.detail.images[3]}
+                      src={room.detail.images[room.detail.images.length-1]}
                       alt="Phòng nghỉ"
                       className="rounded-xl w-full h-[500px] object-cover"
                     />
                   </div>
                   <div className="grid grid-cols-3 gap-4">
                     {room.detail.images
-                      .filter((_, i) => i !== 3) // bỏ ảnh thứ 4 (dùng làm ảnh chính)
-                      .slice(0, 3)               // lấy 3 ảnh còn lại đầu tiên
+                      // Chuẩn hóa về object { link }
+                      .map((img) => {
+                        if (typeof img === "string") return { link: img };
+                        return img;
+                      })
+                      // Loại bỏ ảnh thứ 4 (index 3)
+                      .filter((_, i) => i !== 3)
+                      // Chỉ lấy 3 ảnh đầu
+                      .slice(0, 3)
+                      // Hiển thị ảnh
                       .map((img, i) => (
                         <img
                           key={i}
-                          src={img}
+                          src={img.link}
                           alt={`Ảnh phụ ${i + 1}`}
                           className="rounded-lg w-full h-52 object-cover"
                         />

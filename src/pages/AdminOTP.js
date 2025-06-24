@@ -3,28 +3,76 @@ import { toast, ToastContainer } from "react-toastify";
 import { useNavigate, Navigate } from "react-router-dom";
 import { usePasswordReset } from "../security/PasswordResetContext";
 import 'react-toastify/dist/ReactToastify.css';
+import { encryptOtpWithAES, encryptAESKeyWithRSA } from "../utils/crypto";
+import CryptoJS from "crypto-js";
+import forge from "node-forge";
+
+
 
 export default function OtpVerification() {
+    const navigate = useNavigate();
     const [otp, setOtp] = useState(new Array(6).fill(""));
     const [generatedOtp, setGeneratedOtp] = useState("");
     const [otpRequested, setOtpRequested] = useState(false);
     const { canAccessOTP, setCanAccessResetPassword } = usePasswordReset();
-    const navigate = useNavigate();
+
+    const rawKey = process.env.REACT_APP_RSA_PUBLIC_KEY;
+
+
+
+
+    if (!rawKey) {
+        console.error("❌ PUBLIC_KEY không được định nghĩa trong .env");
+        throw new Error("PUBLIC_KEY is missing");
+    }
+
+    // ⚠️ Nếu vẫn có \\n từ env loader, cần chuyển thành \n thực sự:
+    const PUBLIC_KEY = rawKey.replace(/\\n/g, '\n');
 
     const getOTP = async (otp) => {
+        const keyWordArray = CryptoJS.lib.WordArray.random(32); // 256-bit key
+        const ivWordArray = CryptoJS.lib.WordArray.random(16);  // 128-bit IV
+
+
+
+        // Mã hóa OTP bằng AES
+        const encryptedOtp = CryptoJS.AES.encrypt(otp, keyWordArray, {
+            iv: ivWordArray,
+            mode: CryptoJS.mode.CBC,
+            padding: CryptoJS.pad.Pkcs7,
+        }).toString();
+
+        // Mã hóa AES key bằng RSA OAEP
+        const encryptedAESKey = encryptAESKeyWithRSA(PUBLIC_KEY, keyWordArray);
+        const iv = CryptoJS.enc.Base64.stringify(ivWordArray); // vẫn gửi iv base64
+
+        if (!encryptedAESKey) {
+            toast.error("🔒 Lỗi mã hóa RSA - có thể do public key không hợp lệ");
+            return;
+        }
+
+        const payload = {
+            data: encryptedOtp,
+            key: encryptedAESKey,
+            iv: iv
+        };
+
         try {
-            const response = await fetch("https://re-contract.vercel.app/admin/resetPassword", {
+            const res = await fetch("https://re-contract.vercel.app/admin/resetPassword", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email: "nthehung1412@gmail.com", otp }),
+                body: JSON.stringify(payload),
             });
 
-            const data = await response.json();
-        } catch (error) {
+            const result = await res.json();
+            console.log("🔁 Server response:", result);
+
+        } catch (err) {
             toast.error("Đã xảy ra lỗi khi gửi mã OTP");
-            console.error(error.message);
+            console.error(err);
         }
     };
+
 
     const generateOtp = async (e) => {
         e.preventDefault();
