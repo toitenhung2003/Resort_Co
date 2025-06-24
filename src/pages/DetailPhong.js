@@ -34,7 +34,7 @@ const DetailPhong = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [room]);
 
-  console.log();
+
   return (
     <div className="relative w-full bg-cover bg-center">
       <div
@@ -187,8 +187,15 @@ const DetailPhong = () => {
               {/*Follow us */}
               <div className="flex items-center justify-center gap-6 mt-6">
                 <p className="text-base font-gotham text-cocGreen font-semibold">Follow Us</p>
+                <Link to='https://zalo.me/0866001900'>
                 <img src={iconZalo} alt="zalo" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
+
+                </Link>
+
+                <Link to='https://www.facebook.com/coretreatdabac'>
                 <img src={iconFb} alt="facebook" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
+
+                </Link>
                 <img src={iconIG} alt="instagram" className="w-6 h-6 transition-transform duration-300 hover:scale-125" />
               </div>
 
@@ -242,7 +249,7 @@ const DetailPhong = () => {
             <img src={Icmark} alt="marker" className="w-4 h-4 transition-transform duration-300 hover:scale-110" />
             <span>Vị trí Cọ Retreat:</span>
             <a
-              href="https://maps.google.com"
+              href="https://www.google.com/maps/place/C%E1%BB%8D+Retreat+%C4%90%C3%A0+B%E1%BA%AFc/@20.8776752,105.1002242,17z/data=!3m1!4b1!4m6!3m5!1s0x313475725307e607:0x83d2a40f71247be7!8m2!3d20.8776752!4d105.1002242!16s%2Fg%2F11vb17hstk?entry=ttu&g_ep=EgoyMDI1MDYxNy4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"
               className="ml-2 bg-gray-100 px-3 py-1 rounded-lg text-gray-800 font-semibold text-sm hover:bg-gray-200 flex items-center gap-1"
             >
