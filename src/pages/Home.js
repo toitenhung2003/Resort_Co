@@ -305,7 +305,8 @@ function Home() {
 
 
       <div className="w-full bg-white py-16 px-4 md:px-10 border-t border-gray-300">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+  <div className="max-w-7xl mx-auto flex flex-col-reverse md:grid md:grid-cols-2 gap-10 items-center">
+
 
           {/* Khối ảnh */}
           <div className="relative w-full flex flex-col md:flex-row justify-center items-center gap-6 md:gap-0">
