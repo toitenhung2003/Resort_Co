@@ -40,7 +40,7 @@ function AppLayout() {
 
   return (
     <>
-      {!isHome && !isAdmin && !isLoginAdmin && <NavBar />}
+      {!isAdmin && !isLoginAdmin && <NavBar />}
 
       <ScrollToTop />
 
